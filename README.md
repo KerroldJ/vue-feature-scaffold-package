@@ -1,50 +1,138 @@
 # Vue Feature Scaffold
 
-🚀 A powerful CLI tool to generate feature-based Vue.js architecture for Laravel projects with TypeScript support.
+🚀 A powerful CLI tool to generate feature-based Vue.js architecture for **any Vue.js project** with TypeScript support.
+
+**Optimized for Laravel + Inertia.js, but works with any Vue.js stack!**
 
 ## ✨ Features
 
 - 🎯 **Feature-based architecture** - Self-contained, modular Vue components
 - 📝 **Pure comment templates** - Maximum flexibility with comprehensive examples
 - 🔷 **TypeScript first** - Full type safety out of the box
-- ⚡ **Laravel + Inertia.js ready** - Built for modern Laravel stacks
+- ⚡ **Framework agnostic** - Works with Laravel, Nuxt, Vite, Vue CLI, or any Vue.js project
 - 🎨 **Customizable** - Adapt generated code to your needs
 - 🛡️ **Safe generation** - Directory validation prevents accidents
 
+## 🎯 Use Cases
+
+This CLI works with **any Vue.js project**:
+
+- ✅ **Laravel + Inertia.js** (Primary focus)
+- ✅ **Nuxt.js** projects
+- ✅ **Vite + Vue** projects
+- ✅ **Vue CLI** projects
+- ✅ **Standalone Vue.js** apps
+- ✅ **Quasar**, **Vuetify**, or any Vue framework
+- ✅ **Existing projects** - Add features to any Vue codebase
+
 ## 📦 Installation
 
-### For End Users (After Publishing to npm)
+### Recommended: Install Per Project (Local Dependency)
 
-Once published, users can install globally:
+```bash
+# Navigate to your project
+cd your-project
+
+# Install as dev dependency
+npm install --save-dev vue-feature-scaffold
+
+# Use with npx (no global installation needed)
+npx vue-feature generate users --dir resources/js/pages
+
+# Or add to package.json scripts
+```
+
+**Add to your project's `package.json`:**
+
+```json
+{
+  "scripts": {
+    "generate": "vue-feature generate"
+  }
+}
+```
+
+**Then use it:**
+
+```bash
+# Generate features in your project
+npm run generate users -- --dir resources/js/pages
+npm run generate products -- --dir src/features
+```
+
+### Alternative: Global Installation (Not Recommended)
+
+If you prefer global installation:
 
 ```bash
 npm install -g vue-feature-scaffold
-```
-
-Then use anywhere:
-
-```bash
-cd your-laravel-project
-mkdir -p resources/js/pages
 vue-feature generate users --dir resources/js/pages
 ```
 
-### For Local Development/Testing (Before Publishing)
+**Why local is better:**
 
-If you're developing this tool or want to use it before publishing:
+- ✅ Each project has its own version
+- ✅ Version controlled in `package.json`
+- ✅ Team members get it with `npm install`
+- ✅ No conflicts between projects
+- ✅ Works in CI/CD pipelines
 
-#### Option 1: npm link (Requires sudo on Linux)
+Then use it in **any project** on that machine:
 
 ```bash
+# Laravel + Inertia.js project
+cd ~/projects/laravel-blog
+mkdir -p resources/js/pages
+vue-feature generate users --dir resources/js/pages
+
+# Nuxt.js project
+cd ~/projects/nuxt-ecommerce
+mkdir -p pages/admin
+vue-feature generate products --dir pages/admin
+
+# Vite + Vue project
+cd ~/projects/vue-dashboard
+mkdir -p src/features
+vue-feature generate analytics --dir src/features
+
+# Vue CLI project
+cd ~/work/company-app
+mkdir -p src/modules
+vue-feature generate customers --dir src/modules
+
+# Any Vue.js project
+cd ~/projects/my-vue-app
+mkdir -p src/components/features
+vue-feature generate orders --dir src/components/features
+```
+
+**Once installed globally, the `vue-feature` command works with ANY Vue.js project on your system!**
+
+### For Local Development/Testing (Before Publishing)
+
+**This section is only for:**
+
+- You (the package developer) testing before publishing
+
+#### Option 1: npm link (Makes it globally available on YOUR machine only)
+
+````bash
 # In the vue-feature-scaffold directory
 npm install
 npm run build
-sudo npm link
+sudo npm link  # Links it globally on YOUR computer
+
+# Now you can use it anywhere on YOUR machine (not published yet)
+cd ~/projects/any-project
+vue-feature generate users --dir src/features
+
+# Other people can't use it yet - only you can until you publish to npm
+```o npm link
 
 # Now use globally
 cd your-project
 vue-feature generate users --dir src/features
-```
+````
 
 #### Option 2: npm run generate (No sudo needed - Recommended)
 
@@ -72,14 +160,35 @@ node dist/cli.js generate users --dir output
 
 #### Option 4: Use from different directory
 
-```bash
+````bash
 # From your Laravel project
-cd your-laravel-project
+## 🚀 Quick Start
+
+### Scenario 1: After Publishing to npm (Worldwide Availability)
+
+**Anyone in the world can do this:**
+
+```bash
+# 1. Install once on their machine
+npm install -g vue-feature-scaffold
+
+# 2. Use in any project on their system
+cd ~/my-project
 mkdir -p resources/js/pages
+vue-feature generate users --dir resources/js/pages
+
+# The command works globally across all projects on their machine!
+````
+
+### Scenario 2: Before Publishing (Local Development Only)
+
+**Only you can use it (not published yet):**
 
 # Run from vue-feature-scaffold location
+
 node /path/to/vue-feature-scaffold/dist/cli.js generate users --dir resources/js/pages
-```
+
+````
 
 ## 🚀 Quick Start
 
@@ -97,7 +206,7 @@ vue-feature generate users --dir resources/js/pages
 
 # 4. Customize generated files
 # Open resources/js/pages/users/Index.vue and uncomment examples!
-```
+````
 
 ### If Using Locally (Before publishing)
 
@@ -149,42 +258,50 @@ vue-feature generate <feature-name> [options]
 
 ```bash
 # ============================================================================
-# IF INSTALLED GLOBALLY (after npm publish)
+# USING npm run (Recommended - after adding script to package.json)
 # ============================================================================
 
-# Basic feature generation
-vue-feature generate users --dir resources/js/pages
+# Laravel + Inertia.js
+npm run generate users -- --dir resources/js/pages
+npm run generate products -- --dir resources/js/pages/admin
 
-# Without table component
-vue-feature generate dashboard --dir src/features --no-table
+# Nuxt.js
+npm run generate posts -- --dir pages/blog
+npm run generate dashboard -- --dir pages/admin --no-table --no-form
 
-# Without form component
-vue-feature generate reports --dir src/features --no-form
+# Vite + Vue
+npm run generate analytics -- --dir src/features
+npm run generate reports -- --dir src/modules --no-form
+
+# Vue CLI
+npm run generate customers -- --dir src/views/crm
+npm run generate inventory -- --dir src/components/features
+
+# ============================================================================
+# USING npx (No package.json script needed)
+# ============================================================================
+
+# Laravel
+npx vue-feature generate users --dir resources/js/pages
+
+# Nuxt
+npx vue-feature generate posts --dir pages/blog
+
+# Vite
+npx vue-feature generate dashboard --dir src/features
+
+# ============================================================================
+# WITH OPTIONS
+# ============================================================================
+
+# Skip table component
+npm run generate dashboard -- --dir src/features --no-table
+
+# Skip form component
+npm run generate reports -- --dir src/features --no-form
 
 # Minimal feature (no table, no form)
-vue-feature generate analytics --dir src/features --no-table --no-form
-
-# Laravel typical structure
-vue-feature generate products --dir resources/js/pages
-
-# Deeply nested path
-vue-feature generate employees --dir HRIS/web-admin/resources/js/pages
-
-# ============================================================================
-# IF USING LOCALLY (before publishing)
-# ============================================================================
-
-# Using npm run (from vue-feature-scaffold directory)
-npm run generate users -- --dir /path/to/project/resources/js/pages
-npm run generate products -- --dir output --no-form
-
-# Using node directly
-node dist/cli.js generate users --dir resources/js/pages
-node dist/cli.js generate orders -- --dir src/features --no-table
-
-# From a different directory
-cd your-laravel-project
-node /path/to/vue-feature-scaffold/dist/cli.js generate users --dir resources/js/pages
+npm run generate analytics -- --dir src/features --no-table --no-form
 ```
 
 ### Local Development (Before Publishing)
@@ -230,39 +347,68 @@ All generated files are **pure comments** with comprehensive examples:
 
 - 🎨 List view with CRUD operations
 - 📊 Dashboard with stats
-- 🔗 Inertia.js integration examples
+- 🔗 Inertia.js integration examples (for Laravel)
 - 📱 Multiple layout patterns
+- 🎯 Adaptable to any Vue.js framework
+
+## 🔗 Framework Integration Examples
+
+### Laravel + Inertia.js (Primary)
+
+- **Table.vue**: Data display with sorting, filtering examples
+- **Form.vue**: Create/edit forms with validation patterns
+- Works with any UI library (Vuetify, PrimeVue, Element Plus, etc.)
+
+#### `composables/useFeature.ts` - State Management
+
+- 📦 Full CRUD implementation example
+- ⚡ Reactive state management
+- 🔄 Loading and error handling
+- 🎯 Compatible with Pinia, Vuex, or standalone composables
+
+#### `services/featureApi.ts` - API Layer
+
+- 🌐 RESTful API functions
+- 📡 Axios integration examples (easily swap with fetch, ky, etc.)
+- 🔒 Authentication handling
+- 📥 Works with any backend (Laravel, Express, Django, etc.)
+
+#### `types.ts` - TypeScript Definitions
+
+- 🔷 Entity interfaces
+- 📋 Request/response types
+- 🎯 Framework-agnostic types
+- ✅ Type-safe examples
 
 ## 🔗 Laravel Integration
 
 ### Complete Setup Guide
 
-#### Step 1: Install/Setup vue-feature-scaffold
-
-**If published to npm:**
+#### Step 1: Install in Your Laravel Project
 
 ```bash
-npm install -g vue-feature-scaffold
+cd your-laravel-project
+npm install --save-dev vue-feature-scaffold
 ```
 
-**If using locally:**
+Add to `package.json`:
 
-```bash
-cd /path/to/vue-feature-scaffold
-npm install && npm run build
-sudo npm link  # Or use npm run generate
+```json
+{
+  "scripts": {
+    "generate": "vue-feature generate"
+  }
+}
 ```
 
 #### Step 2: Generate Feature in Your Laravel Project
 
 ```bash
-cd your-laravel-project
 mkdir -p resources/js/pages
-vue-feature generate users --dir resources/js/pages
+npm run generate users -- --dir resources/js/pages
 
-# Or if using locally without link:
-cd /path/to/vue-feature-scaffold
-npm run generate users -- --dir /path/to/your-laravel-project/resources/js/pages
+# Or use npx
+npx vue-feature generate users --dir resources/js/pages
 ```
 
 #### Step 3: Register Routes
@@ -308,70 +454,170 @@ Open `resources/js/pages/users/Index.vue` and uncomment the Inertia.js example!
 
 ### Real-World Usage Example
 
+### Real-World Usage Example
+
 ```bash
 # 1. In your Laravel project root
 cd ~/projects/my-laravel-app
 
-# 2. Generate user management feature
-vue-feature generate users --dir resources/js/pages
+# 2. Install the package
+npm install --save-dev vue-feature-scaffold
 
-# 3. Generate product catalog feature
-vue-feature generate products --dir resources/js/pages
+# 3. Add script to package.json
+# "scripts": { "generate": "vue-feature generate" }
 
-# 4. Generate dashboard (no table/form needed)
-vue-feature generate dashboard --dir resources/js/pages --no-table --no-form
+# 4. Generate user management feature
+npm run generate users -- --dir resources/js/pages
 
-# 5. Build your assets
+# 5. Generate product catalog feature
+npm run generate products -- --dir resources/js/pages
+
+# 6. Generate dashboard (no table/form needed)
+npm run generate dashboard -- --dir resources/js/pages --no-table --no-form
+
+# 7. Build your assets
 npm run dev
 ```
 
-### Expected API Structure
+**Your `package.json` will look like:**
 
-The generated code works with RESTful Laravel APIs:
+````json
+{
+  "devDependencies": {
+    "vue-feature-scaffold": "^0.1.0",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "laravel-vite-plugin": "^0.7.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "generate": "vue-feature generate"
+  }
+}
+``` Expected API Structure
 
-| Method   | Endpoint          | Purpose         |
-| -------- | ----------------- | --------------- |
-| `GET`    | `/api/users`      | List all users  |
-| `GET`    | `/api/users/{id}` | Get single user |
-| `POST`   | `/api/users`      | Create user     |
-| `PUT`    | `/api/users/{id}` | Update user     |
-| `DELETE` | `/api/users/{id}` | Delete user     |
+#### Nuxt.js
+
+```bash
+cd your-nuxt-project
+npm install --save-dev vue-feature-scaffold
+
+# Add to package.json: "generate": "vue-feature generate"
+
+npm run generate posts -- --dir pages/blog
+npm run generate admin -- --dir pages/admin
+````
+
+**Usage:** Place generated features in `pages/` or `components/` directory, uncomment examples, and adapt to Nuxt's conventions (useAsyncData, useFetch, etc.)
+
+#### Vite + Vue
+
+```bash
+cd your-vite-project
+npm install --save-dev vue-feature-scaffold
+
+npm run generate users -- --dir src/features
+npm run generate dashboard -- --dir src/modules
+```
+
+**Usage:** Import generated components in your Vue Router setup. The API layer works with axios or fetch.
+
+#### Vue CLI
+
+```bash
+cd your-vue-cli-project
+npm install --save-dev vue-feature-scaffold
+
+npm run generate customers -- --dir src/views/crm
+```
+
+**Usage:** Generated features integrate seamlessly with Vue Router and your existing structure.
+
+#### Quasar / Vuetify / PrimeVue
+
+```bash
+npm install --save-dev vue-feature-scaffold
+npm run generate products -- --dir src/features
+```
+
+**Usage:** Uncomment the generated examples and replace with your UI library components (QTable, VDataTable, DataTable, etc.)
+
+````
+
+**Usage:** Import generated components in your Vue Router setup. The API layer works with axios or fetch.
+
+#### Vue CLI
+
+```bash
+cd your-vue-cli-project
+vue-feature generate customers --dir src/views/crm
+````
+
+**Usage:** Generated features integrate seamlessly with Vue Router and your existing structure.
+
+#### Quasar / Vuetify / PrimeVue
+
+```bash
+vue-feature generate products --dir src/features
+```
+
+**Usage:** Uncomment the generated examples and replace with your UI library components (QTable, VDataTable, DataTable, etc.)
 
 ## 📚 Documentation
 
-- **[HOW-TO-USE.md](HOW-TO-USE.md)** - Comprehensive usage guide
-- **[QUICKSTART.md](QUICKSTART.md)** - Get started in 5 minutes
-- **[CUSTOMIZATION.md](CUSTOMIZATION.md)** - Customization examples
-- **[CONTRIBUTING.md](CONTRIBUTING.md)** - Developer guide
-- **[examples/](examples/)** - Working example features
-
-## 🛠️ Development
-
-### Setup
-
-````bash
-# Install dependencies
-npm install
-
-# Build
-## ⚠️ Important Notes
-
-### Directory Must Exist
-
-The CLI validates that the output directory exists before generating files. This prevents accidental file creation in wrong locations.
-
-```bash
-# ❌ This will fail
-vue-feature generate users --dir nonexistent/path
-
-# ✅ Do this instead
-mkdir -p resources/js/pages
-vue-feature generate users --dir resources/js/pages
-````
-
 ### Command Not Found?
 
-If you get `vue-feature: command not found`, you have three options:
+If you get `vue-feature: command not found`:
+
+**Solution 1: Use npm run (Recommended)**
+
+```bash
+# Make sure you installed it first
+npm install --save-dev vue-feature-scaffold
+
+# Add script to package.json
+# "scripts": { "generate": "vue-feature generate" }
+
+# Then use it
+npm run generate users -- --dir resources/js/pages
+```
+
+**Solution 2: Use npx**
+
+```bash
+npx vue-feature generate users --dir resources/js/pages
+```
+
+**Solution 3: Check installation**
+
+````bash
+# Verify it's in package.json
+cat package.json | grep vue-feature-scaffold
+### Team Collaboration
+
+When working with a team:
+
+```bash
+# Developer A sets it up
+cd project
+npm install --save-dev vue-feature-scaffold
+
+# Commits package.json with the dependency
+
+# Developer B clones and installs
+git clone project
+npm install  # Gets vue-feature-scaffold automatically
+
+# Everyone can now use it
+npm run generate users -- --dir resources/js/pages
+````
+
+**Benefits:**
+
+- ✅ Same version for all team members
+- ✅ Locked version in `package-lock.json`
+- ✅ No global installation needed
+- ✅ CI/CD pipelines work automaticallyve three options:
 
 **Option 1: Use sudo for npm link (Linux/Mac)**
 
@@ -400,37 +646,9 @@ If you haven't published to npm yet, here's how to use it across multiple projec
 
 **Approach 1: Global link (one-time setup)**
 
-```bash
-cd /path/to/vue-feature-scaffold
-npm install && npm run build
-sudo npm link
+### Publishing Steps
 
-# Now use in any project
-cd ~/projects/project-a
-vue-feature generate users --dir resources/js/pages
-
-cd ~/projects/project-b
-vue-feature generate products --dir src/features
-```
-
-**Approach 2: Direct path usage**
-
-```bash
-# Set an alias in your ~/.bashrc or ~/.zshrc
-alias vue-feature="node /path/to/vue-feature-scaffold/dist/cli.js"
-
-# Then use anywhere
-cd your-project
-vue-feature generate users --dir resources/js/pages
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details.
-
-## 📦 Publishing to npm
-
-When ready to publish this package:
+When ready to make it available on npm:
 
 ```bash
 # 1. Update package.json with unique name if needed
@@ -439,7 +657,88 @@ When ready to publish this package:
 # 2. Build the package
 npm run build
 
-# 3. Test locally first
+# 3. Test locally in a test project
+cd /tmp/test-project
+npm init -y
+npm install --save-dev /path/to/vue-feature-scaffold
+npx vue-feature generate test -- --dir .
+
+# 4. Login to npm (one-time, creates your npmjs.com account link)
+npm login
+
+# 5. Publish to npm (makes it available WORLDWIDE)
+npm publish
+
+# 6. Now ANYONE can install it in their project
+cd their-project
+npm install --save-dev vue-feature-scaffold
+npm run generate users -- --dir resources/js/pages
+```
+
+When ready to make it available worldwide:
+
+````bash
+# 1. Update package.json with unique name if needed
+# Check if name is available: npm search vue-feature-scaffold
+
+# 2. Build the package
+npm run build
+### After Publishing
+
+Developers worldwide can add it to their projects:
+
+```bash
+# Project A (Laravel)
+cd ~/projects/laravel-app
+npm install --save-dev vue-feature-scaffold
+
+# Project B (Nuxt)
+cd ~/projects/nuxt-app
+npm install --save-dev vue-feature-scaffold
+
+# Project C (Vite + Vue)
+cd ~/work/vite-app
+npm install --save-dev vue-feature-scaffold
+
+### Updating Your Package
+
+```bash
+# 1. Make changes to your code
+# 2. Update version in package.json (e.g., 0.1.0 -> 0.1.1)
+npm version patch  # or minor, or major
+
+# 3. Build and publish
+npm run build
+npm publish
+
+# 4. Projects update with:
+cd their-project
+npm update vue-feature-scaffold
+
+# Or specify version
+npm install --save-dev vue-feature-scaffold@latest
+```d
+
+# Developer in Brazil
+npm install -g vue-feature-scaffold
+
+# All can use: vue-feature generate <name> --dir <path>
+````
+
+### Updating Your Package
+
+````bash
+# 1. Make changes to your code
+# 2. Update version in package.json (e.g., 0.1.0 -> 0.1.1)
+npm version patch  # or minor, or major
+
+# 3. Build and publish
+npm run build
+npm publish
+
+# 4. Users update with:
+npm update -g vue-feature-scaffold
+```. Test locally first
 npm link
 vue-feature generate test --dir /tmp/test
 
@@ -452,7 +751,7 @@ npm publish
 # 6. Verify installation
 npm install -g vue-feature-scaffold
 vue-feature generate users --dir test
-```
+````
 
 After publishing, users can simply:
 
@@ -484,16 +783,21 @@ No opinionated code is forced on you!
 └── examples/                  # Working examples
 ```
 
-### Testing
+## 🙏 Acknowledgments
 
-```bash
-# Generate test feature
-npm run build
-npm run generate test-feature -- --dir test-output
+Built for **all Vue.js developers** - whether you're using Laravel, Nuxt, Vite, or any Vue.js framework.
+
+Optimized for Laravel + Inertia.js, but designed to work everywhere.
+
+---
+
+**Made with ❤️ for the Vue.js community**
 
 # Verify generated files
+
 ls -la test-output/test-feature/
-```
+
+````
 
 ## ⚠️ Important Notes
 
@@ -508,7 +812,7 @@ vue-feature generate users --dir nonexistent/path
 # ✅ Do this instead
 mkdir -p resources/js/pages
 vue-feature generate users --dir resources/js/pages
-```
+````
 
 ### Pure Comment Templates
 
