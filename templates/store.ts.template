@@ -1,0 +1,293 @@
+/**
+ * Pinia Store for {{FEATURE_PASCAL}}
+ * 
+ * This is a Pinia store that manages global state for the {{FEATURE_NAME}} feature.
+ * Unlike composables, Pinia stores provide shared state across all components.
+ * 
+ * Installation required:
+ * npm install pinia
+ * 
+ * Setup in your main.ts/app.ts:
+ * import { createPinia } from 'pinia'
+ * app.use(createPinia())
+ */
+
+/**
+ * Uncomment and customize the code below to use this Pinia store.
+ * 
+ * Example 1: Pinia Store with Composition API (Recommended)
+ * 
+ * This store uses Vue 3 Composition API style.
+ * State is reactive and shared globally across all components.
+ */
+
+// import { defineStore } from 'pinia'
+// import { ref, computed } from 'vue'
+// import type { {{FEATURE_PASCAL}}, Create{{FEATURE_PASCAL}}Request, Update{{FEATURE_PASCAL}}Request } from '../types'
+// import { 
+//     get{{FEATURE_PASCAL}}sApi, 
+//     get{{FEATURE_PASCAL}}Api, 
+//     create{{FEATURE_PASCAL}}Api, 
+//     update{{FEATURE_PASCAL}}Api, 
+//     delete{{FEATURE_PASCAL}}Api 
+// } from '../services/{{FEATURE_CAMEL}}Api'
+//
+// export const use{{FEATURE_PASCAL}}Store = defineStore('{{FEATURE_KEBAB}}', () => {
+//     // State
+//     const {{FEATURE_CAMEL}}s = ref<{{FEATURE_PASCAL}}[]>([])
+//     const current{{FEATURE_PASCAL}} = ref<{{FEATURE_PASCAL}} | null>(null)
+//     const loading = ref(false)
+//     const error = ref<string | null>(null)
+//
+//     // Getters (computed properties)
+//     const total{{FEATURE_PASCAL}}s = computed(() => {{FEATURE_CAMEL}}s.value.length)
+//     const has{{FEATURE_PASCAL}}s = computed(() => {{FEATURE_CAMEL}}s.value.length > 0)
+//     const sorted{{FEATURE_PASCAL}}s = computed(() => 
+//         [...{{FEATURE_CAMEL}}s.value].sort((a, b) => a.id - b.id)
+//     )
+//
+//     // Actions (methods)
+//     async function fetchAll() {
+//         loading.value = true
+//         error.value = null
+//         try {
+//             {{FEATURE_CAMEL}}s.value = await get{{FEATURE_PASCAL}}sApi()
+//         } catch (err) {
+//             error.value = err instanceof Error ? err.message : 'Failed to fetch {{FEATURE_CAMEL}}s'
+//             throw err
+//         } finally {
+//             loading.value = false
+//         }
+//     }
+//
+//     async function fetchById(id: number) {
+//         loading.value = true
+//         error.value = null
+//         try {
+//             current{{FEATURE_PASCAL}}.value = await get{{FEATURE_PASCAL}}Api(id)
+//             return current{{FEATURE_PASCAL}}.value
+//         } catch (err) {
+//             error.value = err instanceof Error ? err.message : 'Failed to fetch {{FEATURE_CAMEL}}'
+//             throw err
+//         } finally {
+//             loading.value = false
+//         }
+//     }
+//
+//     async function create(data: Create{{FEATURE_PASCAL}}Request) {
+//         loading.value = true
+//         error.value = null
+//         try {
+//             const new{{FEATURE_PASCAL}} = await create{{FEATURE_PASCAL}}Api(data)
+//             {{FEATURE_CAMEL}}s.value.push(new{{FEATURE_PASCAL}})
+//             return new{{FEATURE_PASCAL}}
+//         } catch (err) {
+//             error.value = err instanceof Error ? err.message : 'Failed to create {{FEATURE_CAMEL}}'
+//             throw err
+//         } finally {
+//             loading.value = false
+//         }
+//     }
+//
+//     async function update(id: number, data: Update{{FEATURE_PASCAL}}Request) {
+//         loading.value = true
+//         error.value = null
+//         try {
+//             const updated{{FEATURE_PASCAL}} = await update{{FEATURE_PASCAL}}Api(id, data)
+//             const index = {{FEATURE_CAMEL}}s.value.findIndex(item => item.id === id)
+//             if (index !== -1) {
+//                 {{FEATURE_CAMEL}}s.value[index] = updated{{FEATURE_PASCAL}}
+//             }
+//             if (current{{FEATURE_PASCAL}}.value?.id === id) {
+//                 current{{FEATURE_PASCAL}}.value = updated{{FEATURE_PASCAL}}
+//             }
+//             return updated{{FEATURE_PASCAL}}
+//         } catch (err) {
+//             error.value = err instanceof Error ? err.message : 'Failed to update {{FEATURE_CAMEL}}'
+//             throw err
+//         } finally {
+//             loading.value = false
+//         }
+//     }
+//
+//     async function remove(id: number) {
+//         loading.value = true
+//         error.value = null
+//         try {
+//             await delete{{FEATURE_PASCAL}}Api(id)
+//             {{FEATURE_CAMEL}}s.value = {{FEATURE_CAMEL}}s.value.filter(item => item.id !== id)
+//             if (current{{FEATURE_PASCAL}}.value?.id === id) {
+//                 current{{FEATURE_PASCAL}}.value = null
+//             }
+//         } catch (err) {
+//             error.value = err instanceof Error ? err.message : 'Failed to delete {{FEATURE_CAMEL}}'
+//             throw err
+//         } finally {
+//             loading.value = false
+//         }
+//     }
+//
+//     function reset() {
+//         {{FEATURE_CAMEL}}s.value = []
+//         current{{FEATURE_PASCAL}}.value = null
+//         loading.value = false
+//         error.value = null
+//     }
+//
+//     return {
+//         // State
+//         {{FEATURE_CAMEL}}s,
+//         current{{FEATURE_PASCAL}},
+//         loading,
+//         error,
+//         
+//         // Getters
+//         total{{FEATURE_PASCAL}}s,
+//         has{{FEATURE_PASCAL}}s,
+//         sorted{{FEATURE_PASCAL}}s,
+//         
+//         // Actions
+//         fetchAll,
+//         fetchById,
+//         create,
+//         update,
+//         remove,
+//         reset
+//     }
+// })
+
+/**
+ * Usage in Vue Components:
+ * 
+ * <script setup lang="ts">
+ * import { use{{FEATURE_PASCAL}}Store } from './stores/use{{FEATURE_PASCAL}}Store'
+ * 
+ * const {{FEATURE_CAMEL}}Store = use{{FEATURE_PASCAL}}Store()
+ * 
+ * // Access state
+ * console.log({{FEATURE_CAMEL}}Store.{{FEATURE_CAMEL}}s)
+ * console.log({{FEATURE_CAMEL}}Store.total{{FEATURE_PASCAL}}s)
+ * 
+ * // Call actions
+ * {{FEATURE_CAMEL}}Store.fetchAll()
+ * {{FEATURE_CAMEL}}Store.create({ name: 'New Item' })
+ * </script>
+ */
+
+/**
+ * Example 2: Options API Style (Alternative)
+ * 
+ * Uncomment if you prefer Options API style:
+ * 
+ * export const use{{FEATURE_PASCAL}}Store = defineStore('{{FEATURE_KEBAB}}', {
+ *     state: () => ({
+ *         {{FEATURE_CAMEL}}s: [] as {{FEATURE_PASCAL}}[],
+ *         current{{FEATURE_PASCAL}}: null as {{FEATURE_PASCAL}} | null,
+ *         loading: false,
+ *         error: null as string | null
+ *     }),
+ * 
+ *     getters: {
+ *         total{{FEATURE_PASCAL}}s: (state) => state.{{FEATURE_CAMEL}}s.length,
+ *         has{{FEATURE_PASCAL}}s: (state) => state.{{FEATURE_CAMEL}}s.length > 0,
+ *         sorted{{FEATURE_PASCAL}}s: (state) => [...state.{{FEATURE_CAMEL}}s].sort((a, b) => a.id - b.id)
+ *     },
+ * 
+ *     actions: {
+ *         async fetchAll() {
+ *             this.loading = true
+ *             this.error = null
+ *             try {
+ *                 this.{{FEATURE_CAMEL}}s = await get{{FEATURE_PASCAL}}sApi()
+ *             } catch (err) {
+ *                 this.error = err instanceof Error ? err.message : 'Failed to fetch'
+ *                 throw err
+ *             } finally {
+ *                 this.loading = false
+ *             }
+ *         }
+ *     }
+ * })
+ */
+
+/**
+ * Example 3: Pinia with Persistence (localStorage)
+ * 
+ * Install: npm install pinia-plugin-persistedstate
+ * 
+ * import { defineStore } from 'pinia'
+ * 
+ * export const use{{FEATURE_PASCAL}}Store = defineStore('{{FEATURE_KEBAB}}', () => {
+ *     // ... your store code ...
+ * }, {
+ *     persist: true  // Automatically saves to localStorage
+ * })
+ */
+
+/**
+ * Usage in Vue Components:
+ * 
+ * <script setup lang="ts">
+ * import { use{{FEATURE_PASCAL}}Store } from './stores/use{{FEATURE_PASCAL}}Store'
+ * 
+ * const {{FEATURE_CAMEL}}Store = use{{FEATURE_PASCAL}}Store()
+ * 
+ * // Access state
+ * console.log({{FEATURE_CAMEL}}Store.{{FEATURE_CAMEL}}s)
+ * console.log({{FEATURE_CAMEL}}Store.total{{FEATURE_PASCAL}}s)
+ * 
+ * // Call actions
+ * {{FEATURE_CAMEL}}Store.fetchAll()
+ * {{FEATURE_CAMEL}}Store.create({ name: 'New Item' })
+ * </script>
+ */
+
+/**
+ * Example 2: Options API Style (Alternative)
+ * 
+ * Uncomment if you prefer Options API style:
+ * 
+ * export const use{{FEATURE_PASCAL}}Store = defineStore('{{FEATURE_KEBAB}}', {
+ *     state: () => ({
+ *         {{FEATURE_CAMEL}}s: [] as {{FEATURE_PASCAL}}[],
+ *         current{{FEATURE_PASCAL}}: null as {{FEATURE_PASCAL}} | null,
+ *         loading: false,
+ *         error: null as string | null
+ *     }),
+ * 
+ *     getters: {
+ *         total{{FEATURE_PASCAL}}s: (state) => state.{{FEATURE_CAMEL}}s.length,
+ *         has{{FEATURE_PASCAL}}s: (state) => state.{{FEATURE_CAMEL}}s.length > 0,
+ *         sorted{{FEATURE_PASCAL}}s: (state) => [...state.{{FEATURE_CAMEL}}s].sort((a, b) => a.id - b.id)
+ *     },
+ * 
+ *     actions: {
+ *         async fetchAll() {
+ *             this.loading = true
+ *             this.error = null
+ *             try {
+ *                 this.{{FEATURE_CAMEL}}s = await get{{FEATURE_PASCAL}}sApi()
+ *             } catch (err) {
+ *                 this.error = err instanceof Error ? err.message : 'Failed to fetch'
+ *                 throw err
+ *             } finally {
+ *                 this.loading = false
+ *             }
+ *         }
+ *     }
+ * })
+ */
+
+/**
+ * Example 3: Pinia with Persistence (localStorage)
+ * 
+ * Install: npm install pinia-plugin-persistedstate
+ * 
+ * import { defineStore } from 'pinia'
+ * 
+ * export const use{{FEATURE_PASCAL}}Store = defineStore('{{FEATURE_KEBAB}}', () => {
+ *     // ... your store code ...
+ * }, {
+ *     persist: true  // Automatically saves to localStorage
+ * })
+ */

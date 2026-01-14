@@ -81,13 +81,22 @@ export async function generateFeature(featureName: string, options: FeatureOptio
             );
         }
 
-        // Generate composable
-        spinner.text = 'Generating composable...';
-        await generateFromTemplate(
-            'useComposable.ts.template',
-            join(featureDir, 'composables', `use${templateData.featureNamePascal}.ts`),
-            templateData
-        );
+        // Generate store or composable (mutually exclusive)
+        if (options.includeStore) {
+            spinner.text = 'Generating Pinia store...';
+            await generateFromTemplate(
+                'store.ts.template',
+                join(featureDir, 'stores', `use${templateData.featureNamePascal}Store.ts`),
+                templateData
+            );
+        } else {
+            spinner.text = 'Generating composable...';
+            await generateFromTemplate(
+                'useComposable.ts.template',
+                join(featureDir, 'composables', `use${templateData.featureNamePascal}.ts`),
+                templateData
+            );
+        }
 
         // Generate service
         spinner.text = 'Generating API service...';

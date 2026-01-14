@@ -58,6 +58,8 @@ npm run generate products -- --dir src/features
 
 ## 📁 Generated Structure
 
+### Default Structure (Composable)
+
 When you run `npx vue-feature-scaffold generate users --dir resources/js/pages`, you get:
 
 ```
@@ -69,6 +71,24 @@ resources/js/pages/
     │   └── UsersForm.vue           # Create/edit form
     ├── composables/
     │   └── useUsers.ts             # State management & business logic
+    ├── services/
+    │   └── usersApi.ts             # API communication layer
+    └── types.ts                     # TypeScript interfaces
+```
+
+### With Pinia Store (Global State)
+
+When you add the `--store` flag: `npx vue-feature-scaffold generate users --dir resources/js/pages --store`
+
+```
+resources/js/pages/
+└── users/
+    ├── Index.vue                    # Main feature entry component
+    ├── components/
+    │   ├── UsersTable.vue          # Data table component
+    │   └── UsersForm.vue           # Create/edit form
+    ├── stores/                      # 🆕 Pinia store instead of composable
+    │   └── useUsersStore.ts        # Global state management with Pinia
     ├── services/
     │   └── usersApi.ts             # API communication layer
     └── types.ts                     # TypeScript interfaces
@@ -95,11 +115,20 @@ resources/js/pages/
 - Handles create and update operations
 - Loading states and error handling
 
-**`composables/useUsers.ts`** - Business logic & state
+**`composables/useUsers.ts`** - Business logic & state (Default)
 
 - Manages reactive state (users, loading, errors)
 - CRUD operations using the API service
 - Returns methods and state to components
+- **Component-local state** - Each component gets its own instance
+
+**`stores/useUsersStore.ts`** - Pinia Store (With `--store` flag)
+
+- Manages **global shared state** across all components
+- Same CRUD operations as composables
+- State persists across component navigation
+- Perfect for authentication, shopping cart, notifications
+- Requires: `npm install pinia`
 
 **`services/usersApi.ts`** - API communication layer
 
@@ -112,13 +141,14 @@ resources/js/pages/
 - Entity interfaces (User, CreateUserRequest, etc.)
 - Request/response types
 - Type-safe development
+### Options
 
-## 📖 Usage
-
-### Basic Command
-
-```bash
-npx vue-feature-scaffold generate <feature-name> --dir <path>
+| Option         | Description                                          | Default |
+| -------------- | ---------------------------------------------------- | ------- |
+| `--dir <path>` | Output directory (**must exist**)                    | `src/`  |
+| `--no-table`   | Skip table component generation                      | `false` |
+| `--no-form`    | Skip form component generation                       | `false` |
+| `--store`      | Generate Pinia store instead of composable (v0.2.0+) | `false` |
 ```
 
 ### Options
@@ -128,13 +158,16 @@ npx vue-feature-scaffold generate <feature-name> --dir <path>
 | `--dir <path>` | Output directory (**must exist**) | `src/`  |
 | `--no-table`   | Skip table component generation   | `false` |
 | `--no-form`    | Skip form component generation    | `false` |
-
 ### Examples
 
 ```bash
-# Basic feature generation
+# Basic feature generation (with composable)
 npx vue-feature-scaffold generate users --dir resources/js/pages
 npx vue-feature-scaffold generate job_publications --dir resources/js/pages
+
+# Generate with Pinia store (global state)
+npx vue-feature-scaffold generate auth --dir resources/js/pages --store
+npx vue-feature-scaffold generate cart --dir resources/js/pages --store
 
 # Skip table component
 npx vue-feature-scaffold generate dashboard --dir src/features --no-table
@@ -144,15 +177,120 @@ npx vue-feature-scaffold generate reports --dir src/features --no-form
 
 # Minimal feature (no table, no form)
 npx vue-feature-scaffold generate analytics --dir src/features --no-table --no-form
+
+# Pinia store without table/form
+npx vue-feature-scaffold generate notifications --dir src/features --store --no-table --no-form
 ```
 
 ### Using npm scripts
 
 ```bash
-# After adding "generate": "vue-feature generate" to package.json
+# After adding "generate": "vue-feature-scaffold generate" to package.json
 
 npm run generate users -- --dir resources/js/pages
+npm run generate auth -- --dir resources/js/pages --store
 npm run generate products -- --dir src/features --no-table
+```
+
+## 🗃️ Composable vs Pinia Store
+
+### When to use Composables (Default)
+
+**Use composables when:**
+- ✅ State is **component-specific** (not shared)
+- ✅ Each component needs its own independent data
+- ✅ Simple CRUD operations without global state needs
+- ✅ You want lightweight, no extra dependencies
+
+**Example:** Product listings, user profiles, form handlers
+
+**What's new in recent versions:**
+
+- `v0.2.0` - **NEW: Pinia store support with `--store` flag** 🎉
+- `v0.1.2` - Prevents duplicate feature generation (checks if folder exists)
+- `v0.1.1` - Preserves feature name format in folder structure
+- `v0.1.0` - Initial release with pure comment templates
+
+```typescript
+// In any component
+const { products, loading, fetchProducts } = useProducts()
+// Each component calling useProducts() gets its own state
+```
+
+### When to use Pinia Store (`--store`)
+
+**Use Pinia stores when:**
+- ✅ State needs to be **shared globally** across components
+- ✅ State should persist during navigation
+- ✅ Multiple components need to access the same data
+- ✅ You need centralized state management (like Vuex)
+
+**Example:** Authentication, shopping cart, notifications, user preferences
+
+```bash
+npx vue-feature-scaffold generate auth --dir resources/js/pages --store
+```
+
+**Generated:** `stores/useAuthStore.ts`
+
+```typescript
+// In any component
+const authStore = useAuthStore()
+// All components share the same authStore state
+```
+
+### Comparison
+
+| Feature              | Composable (Default) | Pinia Store (`--store`) |
+| -------------------- | -------------------- | ----------------------- |
+| State scope          | Component-local      | Global (shared)         |
+| Multiple instances   | Yes                  | No (singleton)          |
+| Navigation persists  | No                   | Yes                     |
+| DevTools integration | Limited              | Full support            |
+| Extra dependencies   | None                 | `pinia`                 |
+| Use case             | Feature-specific     | App-wide state          |
+
+### Setup Requirements for Pinia
+
+If you use the `--store` flag, install Pinia:
+
+```bash
+npm install pinia
+```
+
+**Setup in Laravel + Inertia.js (`resources/js/app.ts`):**
+
+```typescript
+import { createApp, h } from 'vue'
+import { createInertiaApp } from '@inertiajs/vue3'
+import { createPinia } from 'pinia'
+
+createInertiaApp({
+  resolve: (name) => require(`./pages/${name}.vue`),
+  setup({ el, App, props, plugin }) {
+    createApp({ render: () => h(App, props) })
+      .use(plugin)
+      .use(createPinia()) // 👈 Add this line
+      .mount(el)
+  }
+})
+```
+
+**Usage in components:**
+
+```vue
+<script setup lang="ts">
+import { useAuthStore } from './stores/useAuthStore'
+
+const authStore = useAuthStore()
+
+// Access state
+console.log(authStore.user)
+
+// Call actions
+authStore.login({ email: 'user@example.com', password: 'secret' })
+</script>
+``` run generate products -- --dir src/features --no-table
 ```
 
 ## 🔄 Updating the Package
