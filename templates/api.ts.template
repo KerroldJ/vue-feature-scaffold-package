@@ -1,0 +1,56 @@
+/**
+ * {{FEATURE_PASCAL}} API Service
+ * 
+ * Handles all HTTP requests to the Laravel backend.
+ * 
+ * Endpoints:
+ * - GET    /api/{{FEATURE_KEBAB}}s       - Get all {{FEATURE_CAMEL}}s
+ * - GET    /api/{{FEATURE_KEBAB}}s/:id   - Get single {{FEATURE_CAMEL}}
+ * - POST   /api/{{FEATURE_KEBAB}}s       - Create {{FEATURE_CAMEL}}
+ * - PUT    /api/{{FEATURE_KEBAB}}s/:id   - Update {{FEATURE_CAMEL}}
+ * - DELETE /api/{{FEATURE_KEBAB}}s/:id   - Delete {{FEATURE_CAMEL}}
+ * 
+ * EXAMPLE IMPLEMENTATION:
+ * 
+ * import axios from 'axios';
+ * import type { {{FEATURE_PASCAL}} } from '../types';
+ * 
+ * const API_BASE = '/api/{{FEATURE_KEBAB}}s';
+ * 
+ * // Get all {{FEATURE_CAMEL}}s
+ * export async function get{{FEATURE_PASCAL}}sApi(): Promise<{{FEATURE_PASCAL}}[]> {
+ *   const response = await axios.get<{{FEATURE_PASCAL}}[]>(API_BASE);
+ *   return response.data;
+ * }
+ * 
+ * // Get a single {{FEATURE_CAMEL}} by ID
+ * export async function get{{FEATURE_PASCAL}}Api(id: number): Promise<{{FEATURE_PASCAL}}> {
+ *   const response = await axios.get<{{FEATURE_PASCAL}}>(`${API_BASE}/${id}`);
+ *   return response.data;
+ * }
+ * 
+ * // Create a new {{FEATURE_CAMEL}}
+ * export async function create{{FEATURE_PASCAL}}Api(data: Partial<{{FEATURE_PASCAL}}>): Promise<{{FEATURE_PASCAL}}> {
+ *   const response = await axios.post<{{FEATURE_PASCAL}}>(API_BASE, data);
+ *   return response.data;
+ * }
+ * 
+ * // Update an existing {{FEATURE_CAMEL}}
+ * export async function update{{FEATURE_PASCAL}}Api(id: number, data: Partial<{{FEATURE_PASCAL}}>): Promise<{{FEATURE_PASCAL}}> {
+ *   const response = await axios.put<{{FEATURE_PASCAL}}>(`${API_BASE}/${id}`, data);
+ *   return response.data;
+ * }
+ * 
+ * // Delete a {{FEATURE_CAMEL}}
+ * export async function delete{{FEATURE_PASCAL}}Api(id: number): Promise<void> {
+ *   await axios.delete(`${API_BASE}/${id}`);
+ * }
+ * 
+ * CUSTOMIZATION IDEAS:
+ * - Add query parameters for filtering/pagination
+ * - Add custom endpoints (bulk operations, exports, etc.)
+ * - Implement request/response interceptors
+ * - Add retry logic or request cancellation
+ * - Add authentication headers
+ * - Add error handling middleware
+ */

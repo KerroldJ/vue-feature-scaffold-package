@@ -1,0 +1,135 @@
+/**
+ * use{{FEATURE_PASCAL}} Composable
+ * 
+ * Manages state and business logic for the {{FEATURE_CAMEL}} feature.
+ * This file provides reactive state management and CRUD operations.
+ * 
+ * USAGE EXAMPLE:
+ * ```typescript
+ * import { use{{FEATURE_PASCAL}} } from './composables/use{{FEATURE_PASCAL}}';
+ * 
+ * const { 
+ *   {{FEATURE_CAMEL}}s, 
+ *   loading, 
+ *   error,
+ *   fetch{{FEATURE_PASCAL}}s,
+ *   create{{FEATURE_PASCAL}},
+ *   update{{FEATURE_PASCAL}},
+ *   delete{{FEATURE_PASCAL}}
+ * } = use{{FEATURE_PASCAL}}();
+ * 
+ * // Fetch data on component mount
+ * onMounted(() => {
+ *   fetch{{FEATURE_PASCAL}}s();
+ * });
+ * 
+ * // Create new item
+ * const handleCreate = async (data) => {
+ *   await create{{FEATURE_PASCAL}}(data);
+ * };
+ * ```
+ * 
+ * FULL IMPLEMENTATION EXAMPLE:
+ * ```typescript
+ * import { ref } from 'vue';
+ * import type { {{FEATURE_PASCAL}} } from '../types';
+ * import { 
+ *   get{{FEATURE_PASCAL}}sApi, 
+ *   create{{FEATURE_PASCAL}}Api, 
+ *   update{{FEATURE_PASCAL}}Api, 
+ *   delete{{FEATURE_PASCAL}}Api 
+ * } from '../services/{{FEATURE_CAMEL}}Api';
+ * 
+ * export function use{{FEATURE_PASCAL}}() {
+ *   // State
+ *   const {{FEATURE_CAMEL}}s = ref<{{FEATURE_PASCAL}}[]>([]);
+ *   const loading = ref(false);
+ *   const error = ref<string | null>(null);
+ * 
+ *   // Fetch all
+ *   const fetch{{FEATURE_PASCAL}}s = async () => {
+ *     loading.value = true;
+ *     error.value = null;
+ *     try {
+ *       {{FEATURE_CAMEL}}s.value = await get{{FEATURE_PASCAL}}sApi();
+ *     } catch (e) {
+ *       error.value = e instanceof Error ? e.message : 'Failed to fetch';
+ *       console.error('Error fetching {{FEATURE_CAMEL}}s:', e);
+ *     } finally {
+ *       loading.value = false;
+ *     }
+ *   };
+ * 
+ *   // Create
+ *   const create{{FEATURE_PASCAL}} = async (data: Partial<{{FEATURE_PASCAL}}>) => {
+ *     loading.value = true;
+ *     error.value = null;
+ *     try {
+ *       const new{{FEATURE_PASCAL}} = await create{{FEATURE_PASCAL}}Api(data);
+ *       {{FEATURE_CAMEL}}s.value.push(new{{FEATURE_PASCAL}});
+ *       return new{{FEATURE_PASCAL}};
+ *     } catch (e) {
+ *       error.value = e instanceof Error ? e.message : 'Failed to create';
+ *       throw e;
+ *     } finally {
+ *       loading.value = false;
+ *     }
+ *   };
+ * 
+ *   // Update
+ *   const update{{FEATURE_PASCAL}} = async (id: number, data: Partial<{{FEATURE_PASCAL}}>) => {
+ *     loading.value = true;
+ *     error.value = null;
+ *     try {
+ *       const updated = await update{{FEATURE_PASCAL}}Api(id, data);
+ *       const index = {{FEATURE_CAMEL}}s.value.findIndex(item => item.id === id);
+ *       if (index !== -1) {
+ *         {{FEATURE_CAMEL}}s.value[index] = updated;
+ *       }
+ *       return updated;
+ *     } catch (e) {
+ *       error.value = e instanceof Error ? e.message : 'Failed to update';
+ *       throw e;
+ *     } finally {
+ *       loading.value = false;
+ *     }
+ *   };
+ * 
+ *   // Delete
+ *   const delete{{FEATURE_PASCAL}} = async (id: number) => {
+ *     loading.value = true;
+ *     error.value = null;
+ *     try {
+ *       await delete{{FEATURE_PASCAL}}Api(id);
+ *       {{FEATURE_CAMEL}}s.value = {{FEATURE_CAMEL}}s.value.filter(item => item.id !== id);
+ *     } catch (e) {
+ *       error.value = e instanceof Error ? e.message : 'Failed to delete';
+ *       throw e;
+ *     } finally {
+ *       loading.value = false;
+ *     }
+ *   };
+ * 
+ *   return {
+ *     {{FEATURE_CAMEL}}s,
+ *     loading,
+ *     error,
+ *     fetch{{FEATURE_PASCAL}}s,
+ *     create{{FEATURE_PASCAL}},
+ *     update{{FEATURE_PASCAL}},
+ *     delete{{FEATURE_PASCAL}},
+ *   };
+ * }
+ * ```
+ * 
+ * CUSTOMIZATION IDEAS:
+ * - Add pagination support with page/limit parameters
+ * - Add filtering and search functionality
+ * - Implement caching with localStorage or sessionStorage
+ * - Add optimistic updates for better UX
+ * - Add WebSocket support for real-time updates
+ * - Integrate with Pinia for global state management
+ * - Add request debouncing for search
+ * - Implement infinite scroll
+ * - Add sorting capabilities
+ */

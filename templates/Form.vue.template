@@ -1,0 +1,14 @@
+<!--
+/**
+ * 
+ * CUSTOMIZATION IDEAS:
+ * - Add form validation (VeeValidate, Zod, etc.)
+ * - Add file upload fields
+ * - Add rich text editors
+ * - Add date/time pickers
+ * - Implement multi-step forms
+ * - Add autosave functionality
+ * - Add field dependencies
+ * - Show validation errors inline
+ */
+-->

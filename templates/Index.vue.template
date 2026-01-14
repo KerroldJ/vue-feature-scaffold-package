@@ -1,0 +1,83 @@
+<!--
+/**
+ * {{FEATURE_PASCAL}} Feature - Main Entry Component
+ * 
+ * Main entry point for the {{FEATURE_PASCAL}} feature. This component is mapped to a route
+ * and uses composables for state management, delegating UI to child components.
+ * 
+ * COMMON PATTERNS:
+ * 1. List View - Table with CRUD operations
+ * 2. Dashboard - Summary cards and metrics
+ * 3. Form View - Create/edit operations
+ * 4. Inertia.js - Laravel integration with server-side data
+ */
+
+// ============================================================================
+// EXAMPLE: List View with Table and Form
+// ============================================================================
+/*
+<script setup lang="ts">
+import { ref } from 'vue';
+import use{{FEATURE_PASCAL}} from './composables/use{{FEATURE_PASCAL}}';
+import {{FEATURE_PASCAL}}Table from './components/{{FEATURE_PASCAL}}Table.vue';
+import {{FEATURE_PASCAL}}Form from './components/{{FEATURE_PASCAL}}Form.vue';
+
+const { {{FEATURE_CAMEL}}s, loading, fetch{{FEATURE_PASCAL}}s, create{{FEATURE_PASCAL}}, update{{FEATURE_PASCAL}}, delete{{FEATURE_PASCAL}} } = use{{FEATURE_PASCAL}}();
+const showForm = ref(false);
+const editing{{FEATURE_PASCAL}} = ref(null);
+
+fetch{{FEATURE_PASCAL}}s();
+
+const handleSubmit = async (data) => {
+  editing{{FEATURE_PASCAL}}.value ? await update{{FEATURE_PASCAL}}(editing{{FEATURE_PASCAL}}.value.id, data) : await create{{FEATURE_PASCAL}}(data);
+  showForm.value = false;
+  fetch{{FEATURE_PASCAL}}s();
+};
+</script>
+
+<template>
+  <div>
+    <h1>{{FEATURE_PASCAL}}s</h1>
+    <button @click="showForm = true">Create</button>
+    
+    <{{FEATURE_PASCAL}}Table
+      :{{FEATURE_CAMEL}}s="{{FEATURE_CAMEL}}s"
+      :loading="loading"
+      @edit="(item) => { editing{{FEATURE_PASCAL}} = item; showForm = true; }"
+      @delete="delete{{FEATURE_PASCAL}}"
+    />
+    
+    <{{FEATURE_PASCAL}}Form
+      v-if="showForm"
+      :{{FEATURE_CAMEL}}="editing{{FEATURE_PASCAL}}"
+      @submit="handleSubmit"
+      @cancel="showForm = false"
+    />
+  </div>
+</template>
+*/
+
+// ============================================================================
+// EXAMPLE: Inertia.js Integration
+// ============================================================================
+/*
+<script setup lang="ts">
+import { Head } from '@inertiajs/vue3';
+import AppLayout from '@/Layouts/AppLayout.vue';
+import {{FEATURE_PASCAL}}Table from './components/{{FEATURE_PASCAL}}Table.vue';
+
+const props = defineProps<{ {{FEATURE_CAMEL}}s: any[] }>();
+</script>
+
+<template>
+  <AppLayout>
+    <Head title="{{FEATURE_PASCAL}}s" />
+    <h1>{{FEATURE_PASCAL}}s</h1>
+    <{{FEATURE_PASCAL}}Table :{{FEATURE_CAMEL}}s="props.{{FEATURE_CAMEL}}s" />
+  </AppLayout>
+</template>
+*/
+
+// Laravel Route: Route::get('/{{FEATURE_KEBAB}}', [{{FEATURE_PASCAL}}Controller::class, 'index']);
+// Controller: return Inertia::render('{{FEATURE_PASCAL}}/Index', ['{{FEATURE_CAMEL}}s' => {{FEATURE_PASCAL}}::all()]);
+-->

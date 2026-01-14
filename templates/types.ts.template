@@ -1,0 +1,47 @@
+/**
+ * 
+ * 
+ * Tips:
+ * - Keep types in sync with your Laravel model
+ * - Use optional (?) for nullable fields
+ * - Create separate types for requests vs responses
+ * - Add enums for status fields, categories, etc.
+ * - Use Pick/Omit for derived types
+ * 
+ * EXAMPLE IMPLEMENTATION:
+ * 
+ * // Main {{FEATURE_PASCAL}} entity
+ * export interface {{FEATURE_PASCAL}} {
+ *   id: number;
+ *   name: string;
+ *   description?: string;
+ *   status: 'active' | 'inactive';
+ *   created_at?: string;
+ *   updated_at?: string;
+ * }
+ * 
+ * // Request type for creating a {{FEATURE_CAMEL}}
+ * export interface Create{{FEATURE_PASCAL}}Request {
+ *   name: string;
+ *   description?: string;
+ *   status?: 'active' | 'inactive';
+ * }
+ * 
+ * // Request type for updating a {{FEATURE_CAMEL}}
+ * export interface Update{{FEATURE_PASCAL}}Request {
+ *   name?: string;
+ *   description?: string;
+ *   status?: 'active' | 'inactive';
+ * }
+ * 
+ * // Example with enums
+ * export enum {{FEATURE_PASCAL}}Status {
+ *   Active = 'active',
+ *   Inactive = 'inactive',
+ *   Pending = 'pending'
+ * }
+ * 
+ * // Example using Pick/Omit
+ * export type {{FEATURE_PASCAL}}FormData = Omit<{{FEATURE_PASCAL}}, 'id' | 'created_at' | 'updated_at'>;
+ * export type {{FEATURE_PASCAL}}ListItem = Pick<{{FEATURE_PASCAL}}, 'id' | 'name' | 'status'>;
+ */
