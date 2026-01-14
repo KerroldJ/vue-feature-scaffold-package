@@ -264,6 +264,7 @@ vue-feature generate <feature-name> [options]
 # Laravel + Inertia.js
 npm run generate users -- --dir resources/js/pages
 npm run generate products -- --dir resources/js/pages/admin
+npm run generate job_publications -- --dir resources/js/pages
 
 # Nuxt.js
 npm run generate posts -- --dir pages/blog
@@ -282,7 +283,8 @@ npm run generate inventory -- --dir src/components/features
 # ============================================================================
 
 # Laravel
-npx vue-feature generate users --dir resources/js/pages
+npx vue-feature-scaffold generate users --dir resources/js/pages
+npx vue-feature-scaffold generate job_publications --dir resources/js/pages
 
 # Nuxt
 npx vue-feature generate posts --dir pages/blog

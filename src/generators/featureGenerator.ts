@@ -28,8 +28,6 @@ export async function generateFeature(featureName: string, options: FeatureOptio
             );
         }
 
-        spinner.text = 'Generating feature files...';
-
         // Prepare template data
         const templateData: TemplateData = {
             featureName,
@@ -38,7 +36,23 @@ export async function generateFeature(featureName: string, options: FeatureOptio
             featureNameKebab: toKebabCase(featureName),
         };
 
-        const featureDir = join(process.cwd(), options.outputDir, templateData.featureNameCamel);
+        // Use the original feature name for the folder (preserves user's format)
+        const featureDir = join(process.cwd(), options.outputDir, featureName);
+
+        // Check if feature directory already exists
+        spinner.text = 'Checking for existing feature...';
+        const featureDirExists = await directoryExists(featureDir);
+
+        if (featureDirExists) {
+            spinner.fail(`Feature already exists: ${featureName}`);
+            throw new Error(
+                `Feature directory '${featureName}' already exists in '${options.outputDir}'.\n` +
+                `Please use a different feature name or remove the existing directory first.\n` +
+                `Path: ${featureDir}`
+            );
+        }
+
+        spinner.text = 'Generating feature files...';
 
         // Generate Index.vue
         spinner.text = 'Generating Index.vue...';

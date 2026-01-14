@@ -1,6 +1,6 @@
 {
-  "name": "@kerroldj/vue-feature-scaffold",
-  "version": "0.1.1",
+  "name": "vue-feature-scaffold",
+  "version": "0.1.2",
   "description": "CLI tool to generate feature-based Vue.js architecture for any Vue.js project with TypeScript support",
   "type": "module",
   "main": "./dist/index.js",
@@ -50,9 +50,6 @@
     "url": "https://github.com/KerroldJ/vue-feature-scaffold-package/issues"
   },
   "homepage": "https://github.com/KerroldJ/vue-feature-scaffold-package#readme",
-  "publishConfig": {
-    "access": "public"
-  },
   "devDependencies": {
     "@types/node": "^20.10.0",
     "typescript": "^5.3.3",
