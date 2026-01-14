@@ -1,0 +1,53 @@
+# Exclude node_modules
+node_modules/
+
+# Exclude built files (will be rebuilt during publish)
+dist/
+
+# Exclude development files
+*.log
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Exclude test files
+test/
+tests/
+*.test.ts
+*.spec.ts
+coverage/
+
+# Exclude development config
+.vscode/
+.idea/
+*.iml
+
+# Exclude example/demo directories
+examples/test/
+demo-test/
+test-output/
+test-pure/
+test/
+
+# Exclude git files
+.git/
+.gitignore
+
+# Exclude CI/CD files
+.github/
+
+# Exclude documentation that's not needed in package
+CONTRIBUTING.md
+CUSTOMIZATION.md
+HOW-TO-USE.md
+QUICKSTART.md
+SETUP_COMPLETE.md
+test.sh
+
+# Keep only essential files for the published package:
+# - dist/ (built files)
+# - templates/ (template files)
+# - README.md (main documentation)
+# - LICENSE (license file)
+# - package.json (package manifest)

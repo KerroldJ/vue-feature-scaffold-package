@@ -1,7 +1,7 @@
 {
-  "name": "vue-feature-scaffold",
+  "name": "@kerroldj/vue-feature-scaffold",
   "version": "0.1.0",
-  "description": "CLI tool to generate feature-based Vue.js architecture for Laravel projects",
+  "description": "CLI tool to generate feature-based Vue.js architecture for any Vue.js project with TypeScript support",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -10,7 +10,9 @@
   },
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "README.md",
+    "LICENSE"
   ],
   "scripts": {
     "dev": "tsc --watch",
@@ -22,16 +24,35 @@
   },
   "keywords": [
     "vue",
+    "vuejs",
+    "vue3",
     "laravel",
+    "inertia",
+    "nuxt",
+    "vite",
     "cli",
     "scaffold",
     "generator",
     "feature-based",
     "architecture",
-    "typescript"
+    "typescript",
+    "code-generator",
+    "boilerplate",
+    "template"
   ],
-  "author": "",
+  "author": "KerroldJ",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KerroldJ/vue-feature-scaffold-package.git"
+  },
+  "bugs": {
+    "url": "https://github.com/KerroldJ/vue-feature-scaffold-package/issues"
+  },
+  "homepage": "https://github.com/KerroldJ/vue-feature-scaffold-package#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@types/node": "^20.10.0",
     "typescript": "^5.3.3",
